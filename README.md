@@ -32,7 +32,7 @@ Unequal_Risks/
 ## Data Source
 
 U.S. Natality Public Use File (2023)  
-Available via the National Bureau of Economic Research (NBER):  
+The Natality data are originally published by the National Center for Health Statistics (NCHS) and are available in Stata format from the National Bureau of Economic Research (NBER) at:  
 https://www.nber.org/research/data/vital-statistics-natality-birth-data
 
 **Note:** The raw data file (`natality2023us.dta`) is not included in this repository due to size and licensing. Please download it directly from the NBER website and place it in the `/data/` folder.
