@@ -1,13 +1,11 @@
 *******************************************************************
-* Stata Script to Estimate Chain-of-Risks Logistic Regression Models
+* Stata Script to Estimate Logistic Regression Models
 * Author: Maria Ahmed
 * GitHub Repository: https://github.com/drmariaahmed/Unequal_Risks
-* Description: Estimates five nested logistic regression models 
-*              predicting C-section delivery using a stepwise 
-*              "Chain of Risks" framework. Each model adds a 
-*              new domain of explanatory variables.
+* Description:  Estimates five nested models for internal verification; 
+*				exports Models 1 and 5 (baseline and fully adjusted) to Excel
 * Source data: data/natality2023us_filtered.dta
-* Output file: Tables/CoR_Logit_Models_Coeff_[date].xlsx
+* Output file: Tables/Logit_Models_AOR_[date].xlsx
 * NOTE: Requires Stata 18 or higher (uses etable/collect).
 *       Recommended: Install `estout` package: ssc install estout
 *       Ensure working directory is set to the root of this repository before running.
@@ -39,48 +37,44 @@ local shorty = substr("`year'", 3, 2)
 local today = "`day'-`month'-`shorty'"     
 
 *******************************************************************
-* Stepwise Logistic Models (Coefficients)
+* Stepwise Logistic Models (Adjusted Odds Ratios)
 *******************************************************************
 
 * Model 1: Sociodemographic
-eststo model1: logit deliv i.race5 i.methpay ib1.USborn i.edu i.marstat, vce(robust)
+eststo model1: logit deliv i.race5 i.methpay ib1.USborn i.edu i.marstat, or vce(robust)
 
 * Model 2: + Pre-pregnancy risks
 eststo model2: logit deliv i.race5 i.methpay ib1.USborn i.edu i.marstat ///
-                            i.obesity i.mage3, vce(robust)
+                            i.obesity i.mage3, or vce(robust)
 
 * Model 3: + Prenatal-gestational risks
 eststo model3: logit deliv i.race5 i.methpay ib1.USborn i.edu i.marstat ///
                             i.obesity i.mage3 ///
-                            i.pregsmoke i.prenatal i.num_risk, vce(robust)
+                            i.pregsmoke i.prenatal i.num_risk, or vce(robust)
 
 * Model 4: + Fetal risks
 eststo model4: logit deliv i.race5 i.methpay ib1.USborn i.edu i.marstat ///
                             i.obesity i.mage3 ///
                             i.pregsmoke i.prenatal i.num_risk ///
-                            i.sex_infant ib2.birth_wt ib3.apgar5 i.steroids, vce(robust)
+                            i.sex_infant ib2.birth_wt ib3.apgar5 i.steroids, or vce(robust)
 
 * Model 5: + Labor risks
 eststo model5: logit deliv i.race5 i.methpay ib1.USborn i.edu i.marstat ///
                             i.obesity i.mage3 ///
                             i.pregsmoke i.prenatal i.num_risk ///
                             i.sex_infant ib2.birth_wt ib3.apgar5 i.steroids ///
-                            i.infection i.induced i.doc, vce(robust)
+                            i.infection i.induced i.doc, or vce(robust)
 
 *******************************************************************
 * Export models to Excel (etable/collect)
 *******************************************************************
 
-etable, column(index) ///
-    estimates(model1 model2 model3 model4 model5) ///
-    showstars ///
-    title("'Chain of Risks' Logistic Regression Results for C-section Delivery") ///
-    note("Note: ^p < .10; *p < .05; **p < .01 (two-tailed tests). Standard errors in parentheses.")
-
+etable, column(index) estimates(model1 model5) showstars title("Logistic Regression Results as Adjusted Odds Ratios for C-section Delivery ") note("NOTE: *p < .05; **p < .01; ***p < .001 (two-tailed tests). Standard errors are in parenthesis. Sample restricted to singleton, cephalic, nulliparous, term births delivered in hospital settings.")
+* Show the level values of the result dimension. This will affect the row header for the observation number
 collect style header result[N], level(value)
 collect preview
 
-local outpath "Tables/CoR_Logit_Models_Coeff_`today'.xlsx"
+local outpath "Tables/Logit_Models_AOR_`today'.xlsx"
 collect export "`outpath'", replace
-shell "`outpath'"
+* shell "`outpath'"
 }
