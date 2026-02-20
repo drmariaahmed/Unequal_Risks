@@ -15,16 +15,16 @@ This study investigates racial and class disparities in Caesarean-section (C-sec
 
 ## Repository Structure
 
-```
+```text
 Unequal_Risks/
-├── data/                  # [NOT INCLUDED] – user must download raw data from source
-├── 01_cleaning.do         # Clean and recode raw natality data
-├── 02_filter.do           # Apply exclusionary criteria 
-├── 03_dtable_colperc.do   # Generate descriptive statistics using `dtable`
-├── 04_dtable_rowperc.do   # Compute row percentages by delivery method
-├── 05_CoR_models.do       # Run chain-of-risk logistic regression models
-├── 06_LRB_HRB_models.do   # Run LRB and HRB regression models with interactions
-├── 07_LRB_HRB_PP_AME.do   # Compute predicted probabilities and marginal effects
+├── data/ # [NOT INCLUDED] – user must download raw natality data
+├── 01_cleaning.do # Clean and recode raw natality data
+├── 02_filter.do # Apply exclusionary criteria
+├── 03_dtable_colperc.do # Generate descriptive statistics (column percentages)
+├── 04_dtable_rowperc.do # Generate descriptive statistics (row percentages)
+├── 05_CoR_models.do # Estimate logistic regression models; export baseline and fully adjusted models
+├── 06_LRB_HRB_models.do # Estimate LRB/HRB regression models with interactions (race × insurance; race × education)
+├── 07_LRB_HRB_PP_AME.do # Compute predicted probabilities, average marginal effects, and second differences for race × insurance and race × education
 ```
 
 ---
