@@ -2,14 +2,14 @@
 Replication code for Manuscript "Unequal Risks: Caesarean Deliveries among Marginalized Populations in the U.S." 
 (PRPR submission using 2023 US Natality Data)
 
-*Authors: Maria Ahmed (Western University) & Kim Shuey (Western University)*
+*Authors: Maria Ahmed (University of Western Ontario) & Kim Shuey (University of Western Ontario)*
 
 ---
 
 
 ## Project Description
 
-This study investigates racial and class disparities in Caesarean-section (C-section) procedures using 2023 U.S. Natality data. The analysis uses a chain-of-risks modeling strategy and risk-stratified analyses distinguishing between lower-risk births (LRB) and higher-risk births (HRB) to examine how disparities persist even after accounting for behavioral clinical risk profiles.
+This study examines racial and socioeconomic disparities in Caesarean-section (C-section) delivery using 2023 U.S. Natality data (singleton, headfirst, full-term births among first-time mothers, N = 960,154). We employ risk-stratified analyses distinguishing between lower-risk births (LRB) and higher-risk births (HRB) to assess whether disparities persist after accounting for behavioral, medical, fetal, and labor-related risk factors. Guided by Fundamental Cause Theory, the analysis further evaluates whether socioeconomic resources—measured by private insurance and maternal education—confer equivalent protection across racial groups.
 
 ---
 
